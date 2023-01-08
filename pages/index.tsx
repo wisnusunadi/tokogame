@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 import AOS from 'aos';
-import NavBar from '../components/organisms';
+import NavBar from '../components/organisms/Navbars';
 export default function Home() {
   useEffect(() =>{
     AOS.init();
