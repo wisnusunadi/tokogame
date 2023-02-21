@@ -15,3 +15,12 @@ export async function getDetailVoucher(id){
     const axiosResponse = response.data; 
     return axiosResponse.data;
 }
+
+export async function getGamecategory() {
+    const ROOT_API = process.env.NEXT_PUBLIC_API
+    const URL = `player/category`;
+    const response = await axios.get(`${ROOT_API}/api/${URL}`);
+    const axiosResponse = response.data; 
+    return axiosResponse.data;
+    
+}
