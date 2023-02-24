@@ -1,9 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify'
+import { useCallback, useEffect, useState } from "react";
 import { setSignUp } from "../services/auth";
 import { getGamecategory } from "../services/player";
+import { useRouter } from "next/router";
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
@@ -14,6 +15,7 @@ export default function SignUpPhoto() {
     name: "",
     email: "",
   });
+  const router = useRouter();
 
   const getGameCategory = useCallback(async () => {
     const data = await getGamecategory();
@@ -31,7 +33,6 @@ export default function SignUpPhoto() {
   }, []);
 
   const onSubmit = async () => {
-    console.log(favorite);
     const getLocalForm = localStorage.getItem("user-form");
     const form = JSON.parse(getLocalForm);
     const data = new FormData();
@@ -48,11 +49,11 @@ export default function SignUpPhoto() {
 
     if (result?.error === 1) {
       toast.error(result.message)
-      // console.log(result.message)
     } else {
-      console.log('ok')
+      router.push('/sign-up-success')
+      localStorage.removeItem("user-form")
     }
-    // console.log(result);
+
   };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -125,14 +126,13 @@ export default function SignUpPhoto() {
             </div>
 
             <div className="button-group d-flex flex-column mx-auto">
-              <Link href="/sign-up-success" legacyBehavior>
-                <button
-                  className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                  onClick={onSubmit}
-                >
-                  Create My Account
-                </button>
-              </Link>
+
+              <button
+                className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
+                onClick={onSubmit} type="button"
+              >
+                Create My Account
+              </button>
 
               <a
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
@@ -145,7 +145,7 @@ export default function SignUpPhoto() {
           </div>
         </form>
       </div>
-      <ToastContainer></ToastContainer>
+      <ToastContainer />
     </section>
   );
 }
