@@ -26,3 +26,22 @@ export default function checkout() {
         </section>
     )
 }
+
+export async function getServerSideProps({ req }) {
+    const { token } = req.cookies
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/sign-in',
+                permanent: false
+            }
+        }
+    }
+
+
+    return {
+        props: {
+            user: {}
+        }
+    };
+}
