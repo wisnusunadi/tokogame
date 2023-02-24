@@ -16,3 +16,15 @@ export interface SignInTypes {
     password: string;
 
 }
+export interface UserTypes {
+    id: string,
+    name: string,
+    username: string,
+    email: string,
+    avatar: string
+
+}
+export interface JWTPayloadTypes {
+    player: UserTypes,
+    iat: number
+}

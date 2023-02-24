@@ -29,7 +29,7 @@ export default function SignInForm() {
                 const token = response.data.token;
                 const tokenBase64 = btoa(token)
                 Cookies.set('token', tokenBase64, { expires: 1 })
-                // router.push('/')
+                router.push('/')
             }
 
         }
