@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { json } from "stream/consumers";
+import { ToastContainer, toast } from 'react-toastify'
 import { setSignUp } from "../services/auth";
 import { getGamecategory } from "../services/player";
 
@@ -45,7 +45,14 @@ export default function SignUpPhoto() {
     data.append("favorite", favorite);
 
     const result = await setSignUp(data);
-    console.log(result);
+
+    if (result?.error === 1) {
+      toast.error(result.message)
+      // console.log(result.message)
+    } else {
+      console.log('ok')
+    }
+    // console.log(result);
   };
   return (
     <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -138,6 +145,7 @@ export default function SignUpPhoto() {
           </div>
         </form>
       </div>
+      <ToastContainer></ToastContainer>
     </section>
   );
 }
